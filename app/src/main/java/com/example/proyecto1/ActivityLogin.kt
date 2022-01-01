@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
@@ -26,9 +27,9 @@ class ActivityLogin : AppCompatActivity() {
         }
     }
     private fun loginRequest(correo:String, password:String){
-        var url:String="http://192.168.200.8/proyecto/login.php";
+        var url:String="http://192.168.200.8/proyecto/login.php"
         var requestQueue:RequestQueue=Volley.newRequestQueue(this)
-        var stringRequest:StringRequest=object:StringRequest(Method.POST,url, Response.Listener { response ->
+        var stringRequest:StringRequest=object:StringRequest(Request.Method.POST,url, Response.Listener { response ->
             if (response.trim().equals("correcto")) {
                 Toast.makeText(this, "Bienvenido", Toast.LENGTH_LONG).show()
                 val frame1= Intent(this@ActivityLogin,ActivityPrincipal::class.java)
