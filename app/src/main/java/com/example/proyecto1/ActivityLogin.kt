@@ -34,6 +34,7 @@ class ActivityLogin : AppCompatActivity() {
                 Toast.makeText(this, "Bienvenido", Toast.LENGTH_LONG).show()
                 val frame1= Intent(this@ActivityLogin,ActivityPrincipal::class.java)
                 startActivity(frame1)
+                finish()
             } else {
                 Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
             }
