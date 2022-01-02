@@ -16,16 +16,19 @@ class ActivityProductos : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_productos)
-        val txtview:TextView=findViewById(R.id.txtconsulta)
+        val txvista=findViewById<TextView>(R.id.txtconsulta)
         val queue=Volley.newRequestQueue(this)
-        val url="http://192.168.200.8/proyecto/listarProductos.php"
-        /*val stringRequest=StringRequest(Request.Method.GET,url, Response.Listener { response ->
+        val url="http://192.168.200.8/proyecto/listarprueba.php"
+        val stringRequest=StringRequest(Request.Method.GET,url, Response.Listener { response ->
             val jsonArray=JSONArray(response)
-            val jsonObject=
+            for (i in 0 until jsonArray.length()){
+                val jsonObject=jsonArray[i]
+                txvista.text=jsonObject.toString()
+            }
         },Response.ErrorListener { error ->
 
-        })*/
-
+        })
+        queue.add(stringRequest)
     }
 
     override fun onBackPressed() {
