@@ -4,12 +4,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.proyecto1.ui.dashboard.DashboardFragment
+import com.google.android.gms.maps.model.Dash
 import com.google.android.material.textfield.TextInputEditText
 
 class ActivityLogin : AppCompatActivity() {
@@ -24,6 +28,10 @@ class ActivityLogin : AppCompatActivity() {
             val correo:String=txtcorreo.text.toString()
             val password:String=txtpassword.text.toString()
             loginRequest(correo,password)
+            val fragmento=DashboardFragment()
+            val bundle= Bundle()
+            bundle.putString("correo",correo)
+            fragmento.arguments=bundle
         }
     }
     private fun loginRequest(correo:String, password:String){

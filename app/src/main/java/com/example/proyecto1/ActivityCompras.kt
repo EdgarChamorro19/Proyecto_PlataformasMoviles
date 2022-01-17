@@ -1,51 +1,26 @@
-package com.example.proyecto1.ui.notifications
+package com.example.proyecto1
 
-import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.proyecto1.*
-import com.example.proyecto1.databinding.FragmentNotificationsBinding
 import kotlinx.android.synthetic.main.activity_compras.*
 import kotlinx.android.synthetic.main.activity_productos.*
-import kotlinx.android.synthetic.main.fragment_notifications.*
 import org.json.JSONArray
 import org.json.JSONObject
 
-class NotificationsFragment : Fragment() {
-
-
+class ActivityCompras : AppCompatActivity() {
     val arrayList=ArrayList<Compras>()
     val displayList=ArrayList<Compras>()
-    private lateinit var notificationsViewModel: NotificationsViewModel
-    private var _binding: FragmentNotificationsBinding? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_compras)
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        notificationsViewModel =
-            ViewModelProvider(this).get(NotificationsViewModel::class.java)
-
-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        var view = inflater.inflate(R.layout.fragment_notifications, container, false)
         val url = "http://192.168.200.8/proyecto/listarCompras.php"
-        val queue= Volley.newRequestQueue(view.context)
+        val queue= Volley.newRequestQueue(this)
         val stringRequest= StringRequest(Request.Method.GET,url,{ response ->
 
             val jsonArray= JSONArray(response)
@@ -65,20 +40,12 @@ class NotificationsFragment : Fragment() {
 
             displayList.addAll(arrayList)
 
-            val comprasAdapter=ComprasAdapter(displayList, context = ActivityCompras())
-            viewbuys.layoutManager= LinearLayoutManager(view.context)
-            viewbuys.adapter=comprasAdapter
+            val comprasAdapter=ComprasAdapter(displayList,this)
+            comprasview.layoutManager= LinearLayoutManager(this)
+            comprasview.adapter=comprasAdapter
         },{ error ->
+            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
         })
         queue.add(stringRequest)
-
-        return root
-
-
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

@@ -5,10 +5,10 @@
     define('DB_NAME','proyecto');
 
     $mysql = new mysqli(
-        DB_HOST,
-        DB_USER,
-        DB_PASS,
-        DB_NAME
+        "localhost",
+        "root",
+        "",
+        "proyecto"
     );
     
     if($mysql->connect_error){
